@@ -1,0 +1,258 @@
+/home/aistudio/PaddleVideo
+[12/25 14:22:26] DALI is not installed, you can improve performance if use DALI
+[12/25 14:22:26] DATASET : 
+[12/25 14:22:26]     batch_size : 64
+[12/25 14:22:26]     num_workers : 4
+[12/25 14:22:26]     test : 
+[12/25 14:22:26]         data_prefix : 
+[12/25 14:22:26]         file_path : data/ucf101/ucf101_val_split_1_rawframes.txt
+[12/25 14:22:26]         format : FrameDataset
+[12/25 14:22:26]         suffix : img_{:05}.jpg
+[12/25 14:22:26]     train : 
+[12/25 14:22:26]         data_prefix : 
+[12/25 14:22:26]         file_path : data/ucf101/ucf101_train_split_1_rawframes.txt
+[12/25 14:22:26]         format : FrameDataset
+[12/25 14:22:26]         suffix : img_{:05}.jpg
+[12/25 14:22:26]     valid : 
+[12/25 14:22:26]         data_prefix : 
+[12/25 14:22:26]         file_path : data/ucf101/ucf101_val_split_1_rawframes.txt
+[12/25 14:22:26]         format : FrameDataset
+[12/25 14:22:26]         suffix : img_{:05}.jpg
+[12/25 14:22:26] ------------------------------------------------------------
+[12/25 14:22:26] INFERENCE : 
+[12/25 14:22:26]     name : Res_Inference_helper
+[12/25 14:22:26]     num_seg : 16
+[12/25 14:22:26]     target_size : 112
+[12/25 14:22:26] ------------------------------------------------------------
+[12/25 14:22:26] METRIC : 
+[12/25 14:22:26]     name : CenterCropMetric
+[12/25 14:22:26] ------------------------------------------------------------
+[12/25 14:22:26] MODEL : 
+[12/25 14:22:26]     backbone : 
+[12/25 14:22:26]         in_channels : 3
+[12/25 14:22:26]         name : ResNet18
+[12/25 14:22:26]         num_seg : 16
+[12/25 14:22:26]     framework : Recognizer2D
+[12/25 14:22:26]     head : 
+[12/25 14:22:26]         in_channels : 512
+[12/25 14:22:26]         name : FCHead
+[12/25 14:22:26]         num_classes : 101
+[12/25 14:22:26] ------------------------------------------------------------
+[12/25 14:22:26] OPTIMIZER : 
+[12/25 14:22:26]     learning_rate : 
+[12/25 14:22:26]         boundaries : [15, 20]
+[12/25 14:22:26]         name : PiecewiseDecay
+[12/25 14:22:26]         values : [0.01, 0.001, 0.0001]
+[12/25 14:22:26]     momentum : 0.9
+[12/25 14:22:26]     name : Momentum
+[12/25 14:22:26]     weight_decay : 
+[12/25 14:22:26]         name : L2
+[12/25 14:22:26]         value : 0.001
+[12/25 14:22:26] ------------------------------------------------------------
+[12/25 14:22:26] PIPELINE : 
+[12/25 14:22:26]     test : 
+[12/25 14:22:26]         decode : 
+[12/25 14:22:26]             name : FrameDecoder
+[12/25 14:22:26]         sample : 
+[12/25 14:22:26]             name : Sampler
+[12/25 14:22:26]             num_seg : 16
+[12/25 14:22:26]             seg_len : 1
+[12/25 14:22:26]             select_left : True
+[12/25 14:22:26]             valid_mode : True
+[12/25 14:22:26]         transform : 
+[12/25 14:22:26]             Scale : 
+[12/25 14:22:26]                 fixed_ratio : False
+[12/25 14:22:26]                 short_size : 112
+[12/25 14:22:26]             CenterCrop : 
+[12/25 14:22:26]                 target_size : 112
+[12/25 14:22:26]             Image2Array : None
+[12/25 14:22:26]             Normalization : 
+[12/25 14:22:26]                 mean : [0.485, 0.456, 0.406]
+[12/25 14:22:26]                 std : [0.229, 0.224, 0.225]
+[12/25 14:22:26]     train : 
+[12/25 14:22:26]         decode : 
+[12/25 14:22:26]             name : FrameDecoder
+[12/25 14:22:26]         sample : 
+[12/25 14:22:26]             name : Sampler
+[12/25 14:22:26]             num_seg : 16
+[12/25 14:22:26]             seg_len : 1
+[12/25 14:22:26]             select_left : True
+[12/25 14:22:26]             valid_mode : False
+[12/25 14:22:26]         transform : 
+[12/25 14:22:26]             MultiScaleCrop : 
+[12/25 14:22:26]                 allow_duplication : True
+[12/25 14:22:26]                 target_size : 112
+[12/25 14:22:26]             RandomFlip : None
+[12/25 14:22:26]             Image2Array : None
+[12/25 14:22:26]             Normalization : 
+[12/25 14:22:26]                 mean : [0.485, 0.456, 0.406]
+[12/25 14:22:26]                 std : [0.229, 0.224, 0.225]
+[12/25 14:22:26]     valid : 
+[12/25 14:22:26]         decode : 
+[12/25 14:22:26]             name : FrameDecoder
+[12/25 14:22:26]         sample : 
+[12/25 14:22:26]             name : Sampler
+[12/25 14:22:26]             num_seg : 16
+[12/25 14:22:26]             seg_len : 1
+[12/25 14:22:26]             select_left : True
+[12/25 14:22:26]             valid_mode : True
+[12/25 14:22:26]         transform : 
+[12/25 14:22:26]             Scale : 
+[12/25 14:22:26]                 fixed_ratio : False
+[12/25 14:22:26]                 short_size : 112
+[12/25 14:22:26]             CenterCrop : 
+[12/25 14:22:26]                 target_size : 112
+[12/25 14:22:26]             Image2Array : None
+[12/25 14:22:26]             Normalization : 
+[12/25 14:22:26]                 mean : [0.485, 0.456, 0.406]
+[12/25 14:22:26]                 std : [0.229, 0.224, 0.225]
+[12/25 14:22:26] ------------------------------------------------------------
+[12/25 14:22:26] epochs : 25
+[12/25 14:22:26] log_interval : 100
+[12/25 14:22:26] log_level : INFO
+[12/25 14:22:26] model_name : Res18
+[12/25 14:22:26] save_interval : 1
+W1225 14:22:26.910671 35516 device_context.cc:447] Please NOTE: device: 0, GPU Compute Capability: 7.0, Driver API Version: 10.1, Runtime API Version: 10.1
+W1225 14:22:26.914216 35516 device_context.cc:465] device: 0, cuDNN Version: 7.6.
+/opt/conda/envs/python35-paddle120-env/lib/python3.7/site-packages/paddle/nn/layer/norm.py:653: UserWarning: When training, we now always track global mean and variance.
+  "When training, we now always track global mean and variance.")
+[12/25 14:22:40] epoch:[  1/25 ] train step:0    loss: 4.97011 lr: 0.010000 top1: 0.01562 top5: 0.04688 batch_cost: 7.44212 sec, reader_cost: 7.01723 sec, ips: 8.59970 instance/sec.
+[12/25 14:24:53] epoch:[  1/25 ] train step:100  loss: 3.45068 lr: 0.010000 top1: 0.23438 top5: 0.45312 batch_cost: 1.94236 sec, reader_cost: 1.53779 sec, ips: 32.94963 instance/sec.
+[12/25 14:25:53] END epoch:1   train loss_avg: 3.94312  top1_avg: 0.10801 top5_avg: 0.29048 avg_batch_cost: 6.85139 sec, avg_reader_cost: 6.42886 sec, batch_cost_sum: 199.92121 sec, avg_ips: 47.69879 instance/sec.
+[12/25 14:25:57] epoch:[  1/25 ] val step:0    loss: 3.27431 top1: 0.12500 top5: 0.48438 batch_cost: 4.21128 sec, reader_cost: 0.00000 sec, ips: 15.19727 instance/sec.
+[12/25 14:26:56] END epoch:1   val loss_avg: 3.62249 top1_avg: 0.14896 top5_avg: 0.38984 avg_batch_cost: 0.03663 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 63.13030 sec, avg_ips: 60.82658 instance/sec.
+[12/25 14:26:56] Already save the best model (top1 acc)0.1489
+[12/25 14:27:03] epoch:[  2/25 ] train step:0    loss: 2.97192 lr: 0.010000 top1: 0.23438 top5: 0.56250 batch_cost: 5.99099 sec, reader_cost: 5.58344 sec, ips: 10.68272 instance/sec.
+[12/25 14:28:43] epoch:[  2/25 ] train step:100  loss: 3.13550 lr: 0.010000 top1: 0.31250 top5: 0.51562 batch_cost: 0.66834 sec, reader_cost: 0.25150 sec, ips: 95.75927 instance/sec.
+[12/25 14:29:41] END epoch:2   train loss_avg: 3.04453  top1_avg: 0.24004 top5_avg: 0.53744 avg_batch_cost: 1.98405 sec, avg_reader_cost: 1.57599 sec, batch_cost_sum: 164.32389 sec, avg_ips: 58.03173 instance/sec.
+[12/25 14:29:44] epoch:[  2/25 ] val step:0    loss: 3.04674 top1: 0.09375 top5: 0.57812 batch_cost: 3.06230 sec, reader_cost: 0.00000 sec, ips: 20.89934 instance/sec.
+[12/25 14:30:24] END epoch:2   val loss_avg: 3.20268 top1_avg: 0.22474 top5_avg: 0.51566 avg_batch_cost: 0.03729 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 42.68442 sec, avg_ips: 89.96256 instance/sec.
+[12/25 14:30:26] Already save the best model (top1 acc)0.2247
+[12/25 14:30:31] epoch:[  3/25 ] train step:0    loss: 2.53287 lr: 0.010000 top1: 0.34375 top5: 0.67188 batch_cost: 3.88104 sec, reader_cost: 3.43398 sec, ips: 16.49042 instance/sec.
+[12/25 14:32:26] epoch:[  3/25 ] train step:100  loss: 2.72226 lr: 0.010000 top1: 0.32812 top5: 0.60938 batch_cost: 1.99174 sec, reader_cost: 1.58580 sec, ips: 32.13272 instance/sec.
+[12/25 14:33:22] END epoch:3   train loss_avg: 2.53920  top1_avg: 0.33914 top5_avg: 0.66055 avg_batch_cost: 2.80913 sec, avg_reader_cost: 2.39959 sec, batch_cost_sum: 175.18197 sec, avg_ips: 54.43482 instance/sec.
+[12/25 14:33:25] epoch:[  3/25 ] val step:0    loss: 2.83262 top1: 0.25000 top5: 0.67188 batch_cost: 2.99787 sec, reader_cost: 0.00000 sec, ips: 21.34850 instance/sec.
+[12/25 14:34:03] END epoch:3   val loss_avg: 3.14835 top1_avg: 0.25078 top5_avg: 0.53490 avg_batch_cost: 0.03535 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 40.55708 sec, avg_ips: 94.68137 instance/sec.
+[12/25 14:34:05] Already save the best model (top1 acc)0.2507
+[12/25 14:34:09] epoch:[  4/25 ] train step:0    loss: 2.38302 lr: 0.010000 top1: 0.35938 top5: 0.65625 batch_cost: 3.84595 sec, reader_cost: 3.42062 sec, ips: 16.64088 instance/sec.
+[12/25 14:35:42] epoch:[  4/25 ] train step:100  loss: 2.42452 lr: 0.010000 top1: 0.35938 top5: 0.73438 batch_cost: 1.88148 sec, reader_cost: 1.47699 sec, ips: 34.01579 instance/sec.
+[12/25 14:36:26] END epoch:4   train loss_avg: 2.17244  top1_avg: 0.42502 top5_avg: 0.74748 avg_batch_cost: 1.77223 sec, avg_reader_cost: 1.36455 sec, batch_cost_sum: 140.17852 sec, avg_ips: 68.02754 instance/sec.
+[12/25 14:36:29] epoch:[  4/25 ] val step:0    loss: 2.66151 top1: 0.15625 top5: 0.70312 batch_cost: 3.05688 sec, reader_cost: 0.00000 sec, ips: 20.93636 instance/sec.
+[12/25 14:37:08] END epoch:4   val loss_avg: 3.13072 top1_avg: 0.24401 top5_avg: 0.54769 avg_batch_cost: 0.03553 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.97708 sec, avg_ips: 91.47850 instance/sec.
+[12/25 14:37:12] epoch:[  5/25 ] train step:0    loss: 2.22358 lr: 0.010000 top1: 0.32812 top5: 0.76562 batch_cost: 4.10212 sec, reader_cost: 3.67565 sec, ips: 15.60170 instance/sec.
+[12/25 14:38:43] epoch:[  5/25 ] train step:100  loss: 1.91597 lr: 0.010000 top1: 0.51562 top5: 0.71875 batch_cost: 0.78470 sec, reader_cost: 0.37803 sec, ips: 81.55991 instance/sec.
+[12/25 14:39:26] END epoch:5   train loss_avg: 1.85221  top1_avg: 0.50640 top5_avg: 0.80977 avg_batch_cost: 1.05763 sec, avg_reader_cost: 0.65279 sec, batch_cost_sum: 137.70938 sec, avg_ips: 69.24728 instance/sec.
+[12/25 14:39:29] epoch:[  5/25 ] val step:0    loss: 2.80951 top1: 0.17188 top5: 0.70312 batch_cost: 2.89343 sec, reader_cost: 0.00000 sec, ips: 22.11910 instance/sec.
+[12/25 14:40:07] END epoch:5   val loss_avg: 2.95774 top1_avg: 0.31615 top5_avg: 0.60391 avg_batch_cost: 0.03618 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.01927 sec, avg_ips: 93.61455 instance/sec.
+[12/25 14:40:09] Already save the best model (top1 acc)0.3161
+[12/25 14:40:13] epoch:[  6/25 ] train step:0    loss: 1.81369 lr: 0.010000 top1: 0.48438 top5: 0.82812 batch_cost: 3.62100 sec, reader_cost: 3.19691 sec, ips: 17.67468 instance/sec.
+[12/25 14:41:42] epoch:[  6/25 ] train step:100  loss: 1.41185 lr: 0.010000 top1: 0.64062 top5: 0.87500 batch_cost: 4.05849 sec, reader_cost: 3.64976 sec, ips: 15.76940 instance/sec.
+[12/25 14:42:22] END epoch:6   train loss_avg: 1.57974  top1_avg: 0.56858 top5_avg: 0.85644 avg_batch_cost: 2.02731 sec, avg_reader_cost: 1.61959 sec, batch_cost_sum: 131.65276 sec, avg_ips: 72.43297 instance/sec.
+[12/25 14:42:24] epoch:[  6/25 ] val step:0    loss: 3.34775 top1: 0.06250 top5: 0.57812 batch_cost: 2.92667 sec, reader_cost: 0.00000 sec, ips: 21.86786 instance/sec.
+[12/25 14:43:03] END epoch:6   val loss_avg: 2.86718 top1_avg: 0.32760 top5_avg: 0.62656 avg_batch_cost: 0.03576 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.42135 sec, avg_ips: 92.70580 instance/sec.
+[12/25 14:43:05] Already save the best model (top1 acc)0.3276
+[12/25 14:43:09] epoch:[  7/25 ] train step:0    loss: 1.59606 lr: 0.010000 top1: 0.57812 top5: 0.85938 batch_cost: 3.53385 sec, reader_cost: 3.11836 sec, ips: 18.11057 instance/sec.
+[12/25 14:44:35] epoch:[  7/25 ] train step:100  loss: 1.45383 lr: 0.010000 top1: 0.60938 top5: 0.92188 batch_cost: 1.86969 sec, reader_cost: 1.45799 sec, ips: 34.23019 instance/sec.
+[12/25 14:45:16] END epoch:7   train loss_avg: 1.36378  top1_avg: 0.62510 top5_avg: 0.88958 avg_batch_cost: 1.57867 sec, avg_reader_cost: 1.16827 sec, batch_cost_sum: 129.63746 sec, avg_ips: 73.55898 instance/sec.
+[12/25 14:45:19] epoch:[  7/25 ] val step:0    loss: 3.18039 top1: 0.18750 top5: 0.56250 batch_cost: 2.96016 sec, reader_cost: 0.00000 sec, ips: 21.62047 instance/sec.
+[12/25 14:45:57] END epoch:7   val loss_avg: 2.99631 top1_avg: 0.31927 top5_avg: 0.61775 avg_batch_cost: 0.03547 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 40.90567 sec, avg_ips: 93.87453 instance/sec.
+[12/25 14:46:01] epoch:[  8/25 ] train step:0    loss: 1.05577 lr: 0.010000 top1: 0.75000 top5: 0.90625 batch_cost: 3.58698 sec, reader_cost: 3.17775 sec, ips: 17.84232 instance/sec.
+[12/25 14:47:25] epoch:[  8/25 ] train step:100  loss: 1.01782 lr: 0.010000 top1: 0.73438 top5: 0.95312 batch_cost: 1.70800 sec, reader_cost: 1.30040 sec, ips: 37.47083 instance/sec.
+[12/25 14:48:03] END epoch:8   train loss_avg: 1.19933  top1_avg: 0.67282 top5_avg: 0.91055 avg_batch_cost: 1.04950 sec, avg_reader_cost: 0.64362 sec, batch_cost_sum: 125.62488 sec, avg_ips: 75.90853 instance/sec.
+[12/25 14:48:06] epoch:[  8/25 ] val step:0    loss: 2.72017 top1: 0.26562 top5: 0.76562 batch_cost: 2.75018 sec, reader_cost: 0.00000 sec, ips: 23.27122 instance/sec.
+[12/25 14:48:44] END epoch:8   val loss_avg: 2.89739 top1_avg: 0.35000 top5_avg: 0.63438 avg_batch_cost: 0.03580 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.13714 sec, avg_ips: 93.34631 instance/sec.
+[12/25 14:48:46] Already save the best model (top1 acc)0.35
+[12/25 14:48:50] epoch:[  9/25 ] train step:0    loss: 1.06969 lr: 0.010000 top1: 0.70312 top5: 0.93750 batch_cost: 3.49358 sec, reader_cost: 3.07048 sec, ips: 18.31933 instance/sec.
+[12/25 14:50:13] epoch:[  9/25 ] train step:100  loss: 1.06037 lr: 0.010000 top1: 0.67188 top5: 0.95312 batch_cost: 1.38993 sec, reader_cost: 0.98037 sec, ips: 46.04533 instance/sec.
+[12/25 14:50:53] END epoch:9   train loss_avg: 1.01658  top1_avg: 0.72158 top5_avg: 0.93173 avg_batch_cost: 1.49457 sec, avg_reader_cost: 1.08624 sec, batch_cost_sum: 125.90242 sec, avg_ips: 75.74120 instance/sec.
+[12/25 14:50:56] epoch:[  9/25 ] val step:0    loss: 3.14543 top1: 0.14062 top5: 0.54688 batch_cost: 2.99622 sec, reader_cost: 0.00000 sec, ips: 21.36022 instance/sec.
+[12/25 14:51:34] END epoch:9   val loss_avg: 2.85456 top1_avg: 0.35156 top5_avg: 0.63099 avg_batch_cost: 0.03681 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 40.87329 sec, avg_ips: 93.94888 instance/sec.
+[12/25 14:51:36] Already save the best model (top1 acc)0.3515
+[12/25 14:51:40] epoch:[ 10/25 ] train step:0    loss: 1.07817 lr: 0.010000 top1: 0.70312 top5: 0.93750 batch_cost: 3.48390 sec, reader_cost: 3.07440 sec, ips: 18.37024 instance/sec.
+[12/25 14:53:00] epoch:[ 10/25 ] train step:100  loss: 1.00216 lr: 0.010000 top1: 0.73438 top5: 0.93750 batch_cost: 0.59412 sec, reader_cost: 0.18505 sec, ips: 107.72187 instance/sec.
+[12/25 14:53:41] END epoch:10  train loss_avg: 0.90284  top1_avg: 0.74748 top5_avg: 0.94578 avg_batch_cost: 0.40792 sec, avg_reader_cost: 0.00012 sec, batch_cost_sum: 124.22593 sec, avg_ips: 76.76336 instance/sec.
+[12/25 14:53:43] epoch:[ 10/25 ] val step:0    loss: 2.55993 top1: 0.35938 top5: 0.73438 batch_cost: 2.88849 sec, reader_cost: 0.00000 sec, ips: 22.15692 instance/sec.
+[12/25 14:54:22] END epoch:10  val loss_avg: 3.03942 top1_avg: 0.32891 top5_avg: 0.63571 avg_batch_cost: 0.03680 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.09431 sec, avg_ips: 93.44359 instance/sec.
+[12/25 14:54:26] epoch:[ 11/25 ] train step:0    loss: 0.95833 lr: 0.010000 top1: 0.73438 top5: 0.92188 batch_cost: 3.72751 sec, reader_cost: 3.25978 sec, ips: 17.16966 instance/sec.
+[12/25 14:55:48] epoch:[ 11/25 ] train step:100  loss: 0.89757 lr: 0.010000 top1: 0.71875 top5: 0.95312 batch_cost: 1.80853 sec, reader_cost: 1.39804 sec, ips: 35.38792 instance/sec.
+[12/25 14:56:27] END epoch:11  train loss_avg: 0.80584  top1_avg: 0.77852 top5_avg: 0.95386 avg_batch_cost: 1.51622 sec, avg_reader_cost: 1.11134 sec, batch_cost_sum: 124.40288 sec, avg_ips: 76.65417 instance/sec.
+[12/25 14:56:30] epoch:[ 11/25 ] val step:0    loss: 3.24701 top1: 0.20312 top5: 0.54688 batch_cost: 2.90963 sec, reader_cost: 0.00000 sec, ips: 21.99591 instance/sec.
+[12/25 14:57:09] END epoch:11  val loss_avg: 2.89477 top1_avg: 0.35208 top5_avg: 0.64379 avg_batch_cost: 0.03632 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.74701 sec, avg_ips: 91.98262 instance/sec.
+[12/25 14:57:11] Already save the best model (top1 acc)0.352
+[12/25 14:57:15] epoch:[ 12/25 ] train step:0    loss: 0.80177 lr: 0.010000 top1: 0.81250 top5: 0.98438 batch_cost: 3.48251 sec, reader_cost: 3.05039 sec, ips: 18.37753 instance/sec.
+[12/25 14:58:37] epoch:[ 12/25 ] train step:100  loss: 0.97834 lr: 0.010000 top1: 0.70312 top5: 0.95312 batch_cost: 2.12754 sec, reader_cost: 1.72148 sec, ips: 30.08169 instance/sec.
+[12/25 14:59:15] END epoch:12  train loss_avg: 0.72529  top1_avg: 0.80170 top5_avg: 0.96351 avg_batch_cost: 2.29207 sec, avg_reader_cost: 1.88593 sec, batch_cost_sum: 123.07372 sec, avg_ips: 77.48202 instance/sec.
+[12/25 14:59:18] epoch:[ 12/25 ] val step:0    loss: 2.15346 top1: 0.42188 top5: 0.84375 batch_cost: 2.82401 sec, reader_cost: 0.00000 sec, ips: 22.66278 instance/sec.
+[12/25 14:59:56] END epoch:12  val loss_avg: 2.90193 top1_avg: 0.37344 top5_avg: 0.65990 avg_batch_cost: 0.03523 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.17814 sec, avg_ips: 93.25336 instance/sec.
+[12/25 14:59:58] Already save the best model (top1 acc)0.3734
+[12/25 15:00:02] epoch:[ 13/25 ] train step:0    loss: 0.48635 lr: 0.010000 top1: 0.85938 top5: 0.96875 batch_cost: 3.63400 sec, reader_cost: 3.19588 sec, ips: 17.61143 instance/sec.
+[12/25 15:01:25] epoch:[ 13/25 ] train step:100  loss: 0.69828 lr: 0.010000 top1: 0.82812 top5: 0.96875 batch_cost: 1.68727 sec, reader_cost: 1.27494 sec, ips: 37.93098 instance/sec.
+[12/25 15:02:02] END epoch:13  train loss_avg: 0.62690  top1_avg: 0.83127 top5_avg: 0.97158 avg_batch_cost: 1.43506 sec, avg_reader_cost: 1.02704 sec, batch_cost_sum: 123.56102 sec, avg_ips: 77.17644 instance/sec.
+[12/25 15:02:05] epoch:[ 13/25 ] val step:0    loss: 2.81397 top1: 0.26562 top5: 0.70312 batch_cost: 2.91454 sec, reader_cost: 0.00000 sec, ips: 21.95888 instance/sec.
+[12/25 15:02:43] END epoch:13  val loss_avg: 3.06913 top1_avg: 0.35755 top5_avg: 0.63646 avg_batch_cost: 0.03650 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 40.63575 sec, avg_ips: 94.49807 instance/sec.
+[12/25 15:02:48] epoch:[ 14/25 ] train step:0    loss: 0.37917 lr: 0.010000 top1: 0.93750 top5: 1.00000 batch_cost: 4.11913 sec, reader_cost: 3.69170 sec, ips: 15.53727 instance/sec.
+[12/25 15:04:07] epoch:[ 14/25 ] train step:100  loss: 0.38291 lr: 0.010000 top1: 0.92188 top5: 1.00000 batch_cost: 0.73795 sec, reader_cost: 0.32746 sec, ips: 86.72617 instance/sec.
+[12/25 15:04:46] END epoch:14  train loss_avg: 0.57100  top1_avg: 0.84931 top5_avg: 0.97546 avg_batch_cost: 0.40776 sec, avg_reader_cost: 0.00012 sec, batch_cost_sum: 122.26700 sec, avg_ips: 77.99324 instance/sec.
+[12/25 15:04:49] epoch:[ 14/25 ] val step:0    loss: 1.78275 top1: 0.56250 top5: 0.85938 batch_cost: 2.96176 sec, reader_cost: 0.00000 sec, ips: 21.60876 instance/sec.
+[12/25 15:05:27] END epoch:14  val loss_avg: 2.92463 top1_avg: 0.37344 top5_avg: 0.65238 avg_batch_cost: 0.03583 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.05409 sec, avg_ips: 93.53513 instance/sec.
+[12/25 15:06:52] epoch:[ 15/25 ] train step:0    loss: 0.51045 lr: 0.010000 top1: 0.85938 top5: 0.98438 batch_cost: 73.40052 sec, reader_cost: 72.96755 sec, ips: 0.87193 instance/sec.
+[12/25 15:12:25] epoch:[ 15/25 ] train step:100  loss: 0.45102 lr: 0.010000 top1: 0.84375 top5: 0.98438 batch_cost: 1.73422 sec, reader_cost: 1.32948 sec, ips: 36.90427 instance/sec.
+[12/25 15:13:52] END epoch:15  train loss_avg: 0.52534  top1_avg: 0.85654 top5_avg: 0.97913 avg_batch_cost: 1.41381 sec, avg_reader_cost: 1.00652 sec, batch_cost_sum: 493.30626 sec, avg_ips: 19.33079 instance/sec.
+[12/25 15:13:55] epoch:[ 15/25 ] val step:0    loss: 2.92236 top1: 0.23438 top5: 0.68750 batch_cost: 2.85295 sec, reader_cost: 0.00000 sec, ips: 22.43292 instance/sec.
+[12/25 15:14:33] END epoch:15  val loss_avg: 3.04165 top1_avg: 0.37005 top5_avg: 0.64687 avg_batch_cost: 0.03520 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 40.69242 sec, avg_ips: 94.36648 instance/sec.
+[12/25 15:14:37] epoch:[ 16/25 ] train step:0    loss: 0.50693 lr: 0.001000 top1: 0.81250 top5: 1.00000 batch_cost: 3.89946 sec, reader_cost: 3.47316 sec, ips: 16.41251 instance/sec.
+[12/25 15:16:28] epoch:[ 16/25 ] train step:100  loss: 0.22508 lr: 0.001000 top1: 0.95312 top5: 1.00000 batch_cost: 1.97284 sec, reader_cost: 1.56868 sec, ips: 32.44046 instance/sec.
+[12/25 15:17:19] END epoch:16  train loss_avg: 0.30830  top1_avg: 0.92576 top5_avg: 0.99266 avg_batch_cost: 1.20558 sec, avg_reader_cost: 0.80089 sec, batch_cost_sum: 165.78033 sec, avg_ips: 57.52190 instance/sec.
+[12/25 15:17:22] epoch:[ 16/25 ] val step:0    loss: 2.56634 top1: 0.32812 top5: 0.76562 batch_cost: 2.96938 sec, reader_cost: 0.00000 sec, ips: 21.55330 instance/sec.
+[12/25 15:18:01] END epoch:16  val loss_avg: 2.62103 top1_avg: 0.42734 top5_avg: 0.70212 avg_batch_cost: 0.03724 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.58838 sec, avg_ips: 92.33349 instance/sec.
+[12/25 15:18:03] Already save the best model (top1 acc)0.4273
+[12/25 15:18:07] epoch:[ 17/25 ] train step:0    loss: 0.19924 lr: 0.001000 top1: 0.96875 top5: 1.00000 batch_cost: 3.63288 sec, reader_cost: 3.21476 sec, ips: 17.61686 instance/sec.
+[12/25 15:19:52] epoch:[ 17/25 ] train step:100  loss: 0.27656 lr: 0.001000 top1: 0.93750 top5: 0.98438 batch_cost: 1.73538 sec, reader_cost: 1.33124 sec, ips: 36.87959 instance/sec.
+[12/25 15:20:38] END epoch:17  train loss_avg: 0.24321  top1_avg: 0.94578 top5_avg: 0.99476 avg_batch_cost: 2.14654 sec, avg_reader_cost: 1.74365 sec, batch_cost_sum: 154.63748 sec, avg_ips: 61.66681 instance/sec.
+[12/25 15:20:41] epoch:[ 17/25 ] val step:0    loss: 2.46112 top1: 0.46875 top5: 0.79688 batch_cost: 2.79268 sec, reader_cost: 0.00000 sec, ips: 22.91702 instance/sec.
+[12/25 15:21:20] END epoch:17  val loss_avg: 2.59711 top1_avg: 0.43073 top5_avg: 0.70160 avg_batch_cost: 0.03513 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.62645 sec, avg_ips: 92.24903 instance/sec.
+[12/25 15:21:23] Already save the best model (top1 acc)0.4307
+[12/25 15:21:27] epoch:[ 18/25 ] train step:0    loss: 0.24615 lr: 0.001000 top1: 0.92188 top5: 0.98438 batch_cost: 3.54167 sec, reader_cost: 3.11067 sec, ips: 18.07058 instance/sec.
+[12/25 15:23:11] epoch:[ 18/25 ] train step:100  loss: 0.09857 lr: 0.001000 top1: 1.00000 top5: 1.00000 batch_cost: 1.79150 sec, reader_cost: 1.38021 sec, ips: 35.72433 instance/sec.
+[12/25 15:23:54] END epoch:18  train loss_avg: 0.21462  top1_avg: 0.95354 top5_avg: 0.99507 avg_batch_cost: 1.37198 sec, avg_reader_cost: 0.96801 sec, batch_cost_sum: 150.25506 sec, avg_ips: 63.46542 instance/sec.
+[12/25 15:23:58] epoch:[ 18/25 ] val step:0    loss: 2.45060 top1: 0.37500 top5: 0.78125 batch_cost: 3.01498 sec, reader_cost: 0.00000 sec, ips: 21.22735 instance/sec.
+[12/25 15:24:41] END epoch:18  val loss_avg: 2.59282 top1_avg: 0.43203 top5_avg: 0.70186 avg_batch_cost: 0.03605 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 45.85984 sec, avg_ips: 83.73339 instance/sec.
+[12/25 15:24:44] Already save the best model (top1 acc)0.432
+[12/25 15:24:48] epoch:[ 19/25 ] train step:0    loss: 0.20048 lr: 0.001000 top1: 0.93750 top5: 1.00000 batch_cost: 3.50757 sec, reader_cost: 3.09984 sec, ips: 18.24627 instance/sec.
+[12/25 15:26:29] epoch:[ 19/25 ] train step:100  loss: 0.23760 lr: 0.001000 top1: 0.96875 top5: 1.00000 batch_cost: 9.64973 sec, reader_cost: 9.22031 sec, ips: 6.63231 instance/sec.
+[12/25 15:27:09] END epoch:19  train loss_avg: 0.20409  top1_avg: 0.95449 top5_avg: 0.99539 avg_batch_cost: 0.41099 sec, avg_reader_cost: 0.00010 sec, batch_cost_sum: 144.51685 sec, avg_ips: 65.98538 instance/sec.
+[12/25 15:27:12] epoch:[ 19/25 ] val step:0    loss: 2.63913 top1: 0.31250 top5: 0.76562 batch_cost: 2.94066 sec, reader_cost: 0.00000 sec, ips: 21.76384 instance/sec.
+[12/25 15:28:00] END epoch:19  val loss_avg: 2.60193 top1_avg: 0.43073 top5_avg: 0.69740 avg_batch_cost: 0.03710 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 50.55620 sec, avg_ips: 75.95507 instance/sec.
+[12/25 15:28:04] epoch:[ 20/25 ] train step:0    loss: 0.11267 lr: 0.001000 top1: 0.98438 top5: 1.00000 batch_cost: 3.52894 sec, reader_cost: 3.09604 sec, ips: 18.13575 instance/sec.
+[12/25 15:29:47] epoch:[ 20/25 ] train step:100  loss: 0.15378 lr: 0.001000 top1: 0.93750 top5: 1.00000 batch_cost: 1.64312 sec, reader_cost: 1.23798 sec, ips: 38.95040 instance/sec.
+[12/25 15:30:31] END epoch:20  train loss_avg: 0.19840  top1_avg: 0.95680 top5_avg: 0.99560 avg_batch_cost: 0.59082 sec, avg_reader_cost: 0.18416 sec, batch_cost_sum: 150.36163 sec, avg_ips: 63.42044 instance/sec.
+[12/25 15:30:34] epoch:[ 20/25 ] val step:0    loss: 2.49897 top1: 0.35938 top5: 0.76562 batch_cost: 3.11980 sec, reader_cost: 0.00000 sec, ips: 20.51416 instance/sec.
+[12/25 15:31:13] END epoch:20  val loss_avg: 2.58528 top1_avg: 0.43620 top5_avg: 0.70160 avg_batch_cost: 0.03663 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 42.14863 sec, avg_ips: 91.10617 instance/sec.
+[12/25 15:31:17] Already save the best model (top1 acc)0.4361
+[12/25 15:31:24] epoch:[ 21/25 ] train step:0    loss: 0.20214 lr: 0.000100 top1: 0.95312 top5: 1.00000 batch_cost: 5.53741 sec, reader_cost: 5.09851 sec, ips: 11.55774 instance/sec.
+[12/25 15:33:01] epoch:[ 21/25 ] train step:100  loss: 0.23136 lr: 0.000100 top1: 0.92188 top5: 1.00000 batch_cost: 1.80140 sec, reader_cost: 1.39621 sec, ips: 35.52801 instance/sec.
+[12/25 15:33:53] END epoch:21  train loss_avg: 0.17719  top1_avg: 0.96225 top5_avg: 0.99664 avg_batch_cost: 1.36253 sec, avg_reader_cost: 0.95716 sec, batch_cost_sum: 154.79065 sec, avg_ips: 61.60579 instance/sec.
+[12/25 15:33:56] epoch:[ 21/25 ] val step:0    loss: 2.68150 top1: 0.32812 top5: 0.75000 batch_cost: 2.86025 sec, reader_cost: 0.00000 sec, ips: 22.37564 instance/sec.
+[12/25 15:34:52] END epoch:21  val loss_avg: 2.59256 top1_avg: 0.43568 top5_avg: 0.70238 avg_batch_cost: 0.03585 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 58.51693 sec, avg_ips: 65.62204 instance/sec.
+[12/25 15:34:56] epoch:[ 22/25 ] train step:0    loss: 0.12579 lr: 0.000100 top1: 1.00000 top5: 1.00000 batch_cost: 3.43451 sec, reader_cost: 3.02415 sec, ips: 18.63439 instance/sec.
+[12/25 15:36:35] epoch:[ 22/25 ] train step:100  loss: 0.13467 lr: 0.000100 top1: 0.96875 top5: 1.00000 batch_cost: 4.03756 sec, reader_cost: 3.63369 sec, ips: 15.85117 instance/sec.
+[12/25 15:37:27] END epoch:22  train loss_avg: 0.18059  top1_avg: 0.96120 top5_avg: 0.99696 avg_batch_cost: 7.98260 sec, avg_reader_cost: 7.57786 sec, batch_cost_sum: 154.79066 sec, avg_ips: 61.60578 instance/sec.
+[12/25 15:37:30] epoch:[ 22/25 ] val step:0    loss: 2.60950 top1: 0.32812 top5: 0.76562 batch_cost: 2.98142 sec, reader_cost: 0.00000 sec, ips: 21.46628 instance/sec.
+[12/25 15:38:09] END epoch:22  val loss_avg: 2.58552 top1_avg: 0.43620 top5_avg: 0.70290 avg_batch_cost: 0.03693 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 41.85202 sec, avg_ips: 91.75184 instance/sec.
+[12/25 15:38:13] epoch:[ 23/25 ] train step:0    loss: 0.12806 lr: 0.000100 top1: 0.96875 top5: 1.00000 batch_cost: 3.51575 sec, reader_cost: 3.09064 sec, ips: 18.20377 instance/sec.
+[12/25 15:39:58] epoch:[ 23/25 ] train step:100  loss: 0.17659 lr: 0.000100 top1: 0.95312 top5: 1.00000 batch_cost: 1.59336 sec, reader_cost: 1.18755 sec, ips: 40.16658 instance/sec.
+[12/25 15:40:45] END epoch:23  train loss_avg: 0.17904  top1_avg: 0.96109 top5_avg: 0.99696 avg_batch_cost: 3.37910 sec, avg_reader_cost: 2.96324 sec, batch_cost_sum: 155.05300 sec, avg_ips: 61.50155 instance/sec.
+[12/25 15:40:48] epoch:[ 23/25 ] val step:0    loss: 2.57658 top1: 0.32812 top5: 0.75000 batch_cost: 2.81458 sec, reader_cost: 0.00000 sec, ips: 22.73871 instance/sec.
+[12/25 15:41:28] END epoch:23  val loss_avg: 2.58285 top1_avg: 0.43984 top5_avg: 0.70577 avg_batch_cost: 0.03661 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 42.70602 sec, avg_ips: 89.91707 instance/sec.
+[12/25 15:41:29] Already save the best model (top1 acc)0.4398
+[12/25 15:41:38] epoch:[ 24/25 ] train step:0    loss: 0.11630 lr: 0.000100 top1: 0.98438 top5: 1.00000 batch_cost: 8.27196 sec, reader_cost: 7.85436 sec, ips: 7.73698 instance/sec.
+[12/25 15:43:18] epoch:[ 24/25 ] train step:100  loss: 0.10927 lr: 0.000100 top1: 0.96875 top5: 1.00000 batch_cost: 1.95615 sec, reader_cost: 1.55093 sec, ips: 32.71725 instance/sec.
+[12/25 15:44:12] END epoch:24  train loss_avg: 0.17808  top1_avg: 0.96372 top5_avg: 0.99654 avg_batch_cost: 7.99795 sec, avg_reader_cost: 7.59362 sec, batch_cost_sum: 161.46652 sec, avg_ips: 59.05868 instance/sec.
+[12/25 15:44:15] epoch:[ 24/25 ] val step:0    loss: 2.54132 top1: 0.37500 top5: 0.76562 batch_cost: 2.87272 sec, reader_cost: 0.00000 sec, ips: 22.27854 instance/sec.
+[12/25 15:44:53] END epoch:24  val loss_avg: 2.58659 top1_avg: 0.43750 top5_avg: 0.70446 avg_batch_cost: 0.03576 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 40.86907 sec, avg_ips: 93.95858 instance/sec.
+[12/25 15:44:57] epoch:[ 25/25 ] train step:0    loss: 0.29162 lr: 0.000100 top1: 0.95312 top5: 0.98438 batch_cost: 3.44003 sec, reader_cost: 3.01344 sec, ips: 18.60449 instance/sec.
+[12/25 15:46:34] epoch:[ 25/25 ] train step:100  loss: 0.10970 lr: 0.000100 top1: 0.98438 top5: 1.00000 batch_cost: 1.13530 sec, reader_cost: 0.72455 sec, ips: 56.37256 instance/sec.
+[12/25 15:47:33] END epoch:25  train loss_avg: 0.17425  top1_avg: 0.96518 top5_avg: 0.99602 avg_batch_cost: 1.08773 sec, avg_reader_cost: 0.67843 sec, batch_cost_sum: 159.95678 sec, avg_ips: 59.61610 instance/sec.
+[12/25 15:47:38] epoch:[ 25/25 ] val step:0    loss: 2.69097 top1: 0.32812 top5: 0.75000 batch_cost: 3.06618 sec, reader_cost: 0.00000 sec, ips: 20.87286 instance/sec.
+[12/25 15:48:19] END epoch:25  val loss_avg: 2.57698 top1_avg: 0.43958 top5_avg: 0.70238 avg_batch_cost: 0.03553 sec, avg_reader_cost: 0.00000 sec, batch_cost_sum: 44.45751 sec, avg_ips: 86.37461 instance/sec.
+[12/25 15:48:20] training Res18 finished

@@ -15,9 +15,9 @@
 # 二、复现精度
 在UCF101验证集上:
 
-|model|acc|
-|:---:|:---:|
-|3d-resnet|43.98%|
+|model|acc|log|
+|:---:|:---:|:---:|
+|3d-resnet|43.98%|[log](log/train.log)|
 
 # 三、数据集
 UCF101

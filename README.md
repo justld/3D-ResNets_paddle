@@ -48,15 +48,21 @@ pip install -r requirements.txt
 python3 main.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --validate --seed=10001 
 ```
 
-## 第四步：导出预测
-先导出模型，然后预测
+## 第四步：验证
 ```bash
-python3.7 tools/export_model.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml -p output/Res18/Res18_best.pdparams -o inference/Res18_3D
-
-python3.7 tools/predict.py --config configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --input_file /home/aistudio/data/data105621/UCF-101/ApplyEyeMakeup/v_ApplyEyeMakeup_g08_c01.avi --model_file inference/Res18_3D/Res18.pdmodel --params_file inference/Res18_3D/Res18.pdiparams --use_gpu=True --use_tensorrt=False
+python3 main.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --test -w {path to pdparams}
 ```
 
 
+## 第五步：导出预测
+先导出模型，然后预测
+```bash
+python3.7 tools/export_model.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml -p {path to pdparams} -o inference/Res18_3D
+
+python3.7 tools/predict.py --config configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --input_file {path to avi} --model_file inference/Res18_3D/Res18.pdmodel --params_file inference/Res18_3D/Res18.pdiparams --use_gpu=True --use_tensorrt=False
+```
+
+in
 # 五、模型信息
 
 |信息|描述|

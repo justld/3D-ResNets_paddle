@@ -61,10 +61,10 @@ python3.7 tools/export_model.py -c configs/recognition/resnet18_3d/resnet18_3d_u
 python3.7 tools/predict.py --config configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --input_file {path to avi} --model_file inference/Res18_3D/Res18.pdmodel --params_file inference/Res18_3D/Res18.pdiparams --use_gpu=True --use_tensorrt=False
 ```
 
-# 五、模型信息
+# 六、模型信息
 
 |信息|描述|
-|---|---|
+|:---:|:---:|
 |作者|郎督|
 |框架版本|PaddlePaddle==2.2.1|
 |在线体验|[notebook](https://aistudio.baidu.com/aistudio/projectdetail/3034369?contributionType=1)|

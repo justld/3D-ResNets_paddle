@@ -42,14 +42,25 @@ pip install -r requirements.txt
 参考[UCF101数据准备](https://github.com/PaddlePaddle/PaddleVideo/blob/develop/docs/zh-CN/dataset/ucf101.md)
 
 ## 第三步：训练
-训练需要一个小时左右，因为固定了随机数种子，可以很快得到训练结果，暂未提供权重。
+训练需要一个小时左右，可以很快得到训练结果.  
+[权重在aistudio下载](https://aistudio.baidu.com/aistudio/projectdetail/3034369?contributionType=1)
 ```bash
 python3 main.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --validate --seed=10001 
 ```
 
+## 第四步：导出预测
+先导出模型，然后预测
+```bash
+python3.7 tools/export_model.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml -p output/Res18/Res18_best.pdparams -o inference/Res18_3D
+
+python3.7 tools/predict.py --config configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --input_file /home/aistudio/data/data105621/UCF-101/ApplyEyeMakeup/v_ApplyEyeMakeup_g08_c01.avi --model_file inference/Res18_3D/Res18.pdmodel --params_file inference/Res18_3D/Res18.pdiparams --use_gpu=True --use_tensorrt=False
+```
+
 
 # 五、模型信息
+
 |信息|描述|
+|---|---|
 |作者|郎督|
 |框架版本|PaddlePaddle==2.2.1|
 |在线体验|[notebook](https://aistudio.baidu.com/aistudio/projectdetail/3034369?contributionType=1)|

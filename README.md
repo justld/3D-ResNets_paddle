@@ -39,7 +39,7 @@ pip install -r requirements.txt
 ```
 
 ## 第二步：准备数据
-参考[UCF101数据准备](https://github.com/PaddlePaddle/PaddleVideo/blob/develop/docs/zh-CN/dataset/ucf101.md)
+参考[UCF101数据准备](ucf101.md)
 
 ## 第三步：训练
 训练需要一个小时左右，可以很快得到训练结果.  
@@ -53,7 +53,6 @@ python3 main.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yam
 python3 main.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --test -w {path to pdparams}
 ```
 
-
 ## 第五步：导出预测
 先导出模型，然后预测
 ```bash
@@ -62,7 +61,6 @@ python3.7 tools/export_model.py -c configs/recognition/resnet18_3d/resnet18_3d_u
 python3.7 tools/predict.py --config configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --input_file {path to avi} --model_file inference/Res18_3D/Res18.pdmodel --params_file inference/Res18_3D/Res18.pdiparams --use_gpu=True --use_tensorrt=False
 ```
 
-in
 # 五、模型信息
 
 |信息|描述|

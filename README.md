@@ -43,7 +43,7 @@ pip install -r requirements.txt
 
 ## 第三步：训练
 训练需要一个小时左右，可以很快得到训练结果.  
-[权重下载 提取码：9exc](链接：https://pan.baidu.com/s/1USBWBLpFHKRUVI4NVQxAGA)
+[权重下载 提取码：9exc](https://pan.baidu.com/s/1USBWBLpFHKRUVI4NVQxAGA)
 ```bash
 python3 main.py -c configs/recognition/resnet18_3d/resnet18_3d_ucf101_frames.yaml --validate --seed=10001 
 ```
